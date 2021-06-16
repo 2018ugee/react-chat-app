@@ -1,0 +1,89 @@
+.messenger {
+  height: calc(100vh - 70px);
+  display: flex;
+}
+.chatMenu {
+  flex: 3.5;
+}
+.otherFriends {
+  font-size: 18px;
+  font-weight: 500;
+  /* padding-left: 10px; */
+  display: inline-block;
+  margin-top: 30px;
+}
+.myFriends {
+  font-size: 18px;
+  font-weight: 500;
+}
+.chatBox {
+  flex: 5.5;
+}
+.chatBoxWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+.chatMenuInput {
+  border: none;
+  width: 100%;
+}
+.chatMenuInput:focus {
+  border: none;
+}
+.chatBoxTop {
+  height: 100%;
+  overflow-y: scroll;
+  padding-right: 10px;
+}
+.chatBoxBottom {
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.chatMessageInput {
+  width: 80%;
+  height: 90px;
+  padding: 10px;
+}
+.chatSubmitButton {
+  width: 70px;
+  height: 40px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: teal;
+  color: white;
+}
+.chatOnline {
+  flex: 3;
+}
+.chatMenuWrapper,
+.chatBoxWrapper,
+.chatOnlineWrapper {
+  padding: 10px;
+  height: 100%;
+}
+.noConversationText {
+  position: absolute;
+  top: 10%;
+  font-size: 50px;
+  color: rgb(224, 220, 220);
+  cursor: default;
+}
+.noConversations {
+  display: block;
+  font-size: 19px;
+  color: grey;
+}
+.chatBoxBottom aside.emoji-picker-react {
+  height: 210px !important;
+  width: 400px !important;
+}
+.onlineFriendsTop {
+  font-size: 18px;
+  font-weight: 500;
+  /* padding-left: 10px; */
+}
