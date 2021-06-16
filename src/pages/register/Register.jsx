@@ -26,7 +26,7 @@ function Register() {
       };
       try {
         const res = await axios.post(
-          "http://localhost:4000/api/auth/register",
+          "https://pandsocial.herokuapp.com/api/auth/register",
           user
         );
         // console.log(res);

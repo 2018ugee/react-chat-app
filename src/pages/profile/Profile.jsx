@@ -19,7 +19,7 @@ function Profile() {
     const fetchUser = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:4000/api/users?username=${username}`
+          `https://pandsocial.herokuapp.com/api/users?username=${username}`
         );
         setuser(res.data);
         console.log(res.data.profilePicture);

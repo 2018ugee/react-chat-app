@@ -31,7 +31,7 @@ function Post({ post }) {
   useEffect(() => {
     const fetchUser = async () => {
       const res = await axios.get(
-        `http://localhost:4000/api/users?userId=${post.userId}`
+        `https://pandsocial.herokuapp.com/api/users?userId=${post.userId}`
       );
       setuser(res.data);
       console.log(res);
@@ -40,7 +40,7 @@ function Post({ post }) {
 
     const fetchComments = async () => {
       const res = await axios.get(
-        "http://localhost:4000/api/comment/" + post._id
+        "https://pandsocial.herokuapp.com/api/comment/" + post._id
       );
       setcomments(res.data);
     };
@@ -49,9 +49,12 @@ function Post({ post }) {
 
   const likehandler = async () => {
     try {
-      await axios.put("http://localhost:4000/api/posts/" + post._id + "/like", {
-        userId: currentUser._id,
-      });
+      await axios.put(
+        "https://pandsocial.herokuapp.com/api/posts/" + post._id + "/like",
+        {
+          userId: currentUser._id,
+        }
+      );
     } catch (err) {}
     setlike(isliked ? like - 1 : like + 1);
     setisliked(!isliked);
@@ -74,7 +77,7 @@ function Post({ post }) {
     comment.current.value = "";
 
     try {
-      await axios.put("http://localhost:4000/api/comment", data);
+      await axios.put("https://pandsocial.herokuapp.com/api/comment", data);
     } catch (e) {
       console.log(e);
     }

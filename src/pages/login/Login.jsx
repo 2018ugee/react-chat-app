@@ -35,10 +35,13 @@ function Login() {
       //   { email: email.current.value, password: password.current.value },
       //   dispatch
       // );
-      const res = await axios.post("http://localhost:4000/api/auth/login", {
-        email: email.current.value,
-        password: password.current.value,
-      });
+      const res = await axios.post(
+        "https://pandsocial.herokuapp.com/api/auth/login",
+        {
+          email: email.current.value,
+          password: password.current.value,
+        }
+      );
 
       if (res.data === "User not found" || res.data === "Wrong credentials") {
         setisFetching(false);

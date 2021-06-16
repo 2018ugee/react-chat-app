@@ -59,7 +59,7 @@ function Messenger() {
     const getConversations = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:4000/api/conversation/" + user._id
+          "https://pandsocial.herokuapp.com/api/conversation/" + user._id
         );
         setconversations(
           res.data.filter((c) => {
@@ -87,14 +87,14 @@ function Messenger() {
     const getMessages = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:4000/api/message/" + currentChat._id
+          "https://pandsocial.herokuapp.com/api/message/" + currentChat._id
         );
         setmessages(res.data);
         const recieverId = currentChat.members.find(
           (member) => member !== user._id
         );
         const convfrnd = await axios.get(
-          "http://localhost:4000/api/users?userId=" + recieverId
+          "https://pandsocial.herokuapp.com/api/users?userId=" + recieverId
         );
         setconvFriend(convfrnd.data);
       } catch (err) {
@@ -125,7 +125,7 @@ function Messenger() {
 
     try {
       const res = await axios.post(
-        "http://localhost:4000/api/message",
+        "https://pandsocial.herokuapp.com/api/message",
         message
       );
       setmessages([...messages, res.data]);

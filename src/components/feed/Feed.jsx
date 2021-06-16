@@ -34,9 +34,11 @@ function Feed({ username }) {
   useEffect(() => {
     const fetchPosts = async () => {
       const res = username
-        ? await axios.get("http://localhost:4000/api/posts/profile/" + username)
+        ? await axios.get(
+            "https://pandsocial.herokuapp.com/api/posts/profile/" + username
+          )
         : await axios.get(
-            "http://localhost:4000/api/posts/timeline/" + user._id
+            "https://pandsocial.herokuapp.com/api/posts/timeline/" + user._id
           );
       setposts(
         res.data.sort((p1, p2) => {
@@ -64,11 +66,14 @@ function Feed({ username }) {
       localStorage.removeItem("user");
       localStorage.setItem("user", JSON.stringify(user));
       try {
-        await axios.put("http://localhost:4000/api/users/" + user._id, {
-          [changeTypeKey]: fileName,
-          userId: user._id,
-        });
-        await axios.post("http://localhost:4000/api/upload", data);
+        await axios.put(
+          "https://pandsocial.herokuapp.com/api/users/" + user._id,
+          {
+            [changeTypeKey]: fileName,
+            userId: user._id,
+          }
+        );
+        await axios.post("https://pandsocial.herokuapp.com/api/upload", data);
         window.location.reload();
       } catch (err) {
         console.log(err);
@@ -103,7 +108,10 @@ function Feed({ username }) {
     localStorage.removeItem("user");
     localStorage.setItem("user", JSON.stringify(others));
     try {
-      await axios.put("http://localhost:4000/api/users/" + user._id, data);
+      await axios.put(
+        "https://pandsocial.herokuapp.com/api/users/" + user._id,
+        data
+      );
       window.location.reload();
     } catch (err) {
       console.log(err);

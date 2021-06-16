@@ -34,7 +34,8 @@ function Rightbar({ user }) {
       const getFriends = async () => {
         try {
           const friendList = await axios.get(
-            "http://localhost:4000/api/users/friends/" + currentUser._id
+            "https://pandsocial.herokuapp.com/api/users/friends/" +
+              currentUser._id
           );
           setfriends(friendList.data);
         } catch (err) {
@@ -133,7 +134,7 @@ function Rightbar({ user }) {
       const getFriends = async () => {
         try {
           const friendList = await axios.get(
-            "http://localhost:4000/api/users/friends/" + user._id
+            "https://pandsocial.herokuapp.com/api/users/friends/" + user._id
           );
           setfriends(friendList.data);
         } catch (err) {
@@ -148,7 +149,9 @@ function Rightbar({ user }) {
       try {
         if (followed) {
           await axios.put(
-            "http://localhost:4000/api/users/" + user._id + "/unfollow",
+            "https://pandsocial.herokuapp.com/api/users/" +
+              user._id +
+              "/unfollow",
             {
               userId: currentUser._id,
             }
@@ -163,7 +166,9 @@ function Rightbar({ user }) {
           //   dispatch({ type: "UNFOLLOW", payload: user._id });
         } else {
           await axios.put(
-            "http://localhost:4000/api/users/" + user._id + "/follow",
+            "https://pandsocial.herokuapp.com/api/users/" +
+              user._id +
+              "/follow",
             {
               userId: currentUser._id,
             }
@@ -172,10 +177,13 @@ function Rightbar({ user }) {
           //make new conversation if already not b/w these users
           let res = null;
           try {
-            res = await axios.post("http://localhost:4000/api/conversation", {
-              senderId: currentUser._id,
-              recieverId: user._id,
-            });
+            res = await axios.post(
+              "https://pandsocial.herokuapp.com/api/conversation",
+              {
+                senderId: currentUser._id,
+                recieverId: user._id,
+              }
+            );
           } catch (err) {
             console.log(err, "error in creating new conversation after follow");
             console.log(res);

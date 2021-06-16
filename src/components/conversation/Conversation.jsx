@@ -11,7 +11,7 @@ function Conversation({ conversation, currentUser }) {
     const getUser = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:4000/api/users?userId=" + friendId
+          "https://pandsocial.herokuapp.com/api/users?userId=" + friendId
         );
         setuser(res.data);
       } catch (err) {

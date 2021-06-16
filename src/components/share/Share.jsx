@@ -27,14 +27,14 @@ function Share() {
       data.append("file", file);
       newPost.img = fileName;
       try {
-        await axios.post("http://localhost:4000/api/upload", data);
+        await axios.post("https://pandsocial.herokuapp.com/api/upload", data);
       } catch (err) {
         console.log(err);
       }
     }
 
     try {
-      await axios.post("http://localhost:4000/api/posts", newPost);
+      await axios.post("https://pandsocial.herokuapp.com/api/posts", newPost);
       window.location.reload();
     } catch (err) {}
   };

@@ -26,7 +26,7 @@ function Sidebar() {
     const getAllUsers = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:4000/api/users/getAll/" + currentUser._id
+          "https://pandsocial.herokuapp.com/api/users/getAll/" + currentUser._id
         );
         res.data = res.data.filter(
           (other) => !currentUser.followings.includes(other._id)

@@ -19,7 +19,7 @@ function ChatOnline({ onlineUsers, currentId, setcurrentChat, conversations }) {
     const getFriends = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:4000/api/users/friends/" + currentId
+          "https://pandsocial.herokuapp.com/api/users/friends/" + currentId
         );
         setfriends(res.data);
       } catch (err) {
