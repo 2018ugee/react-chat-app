@@ -50,7 +50,7 @@
 }
 .rightbarInfo {
   margin-bottom: 30px;
-  font-size: 15px;
+  font-size: 17px;
 }
 .rightbarInfoItem {
   margin-bottom: 10px;
@@ -67,7 +67,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  font-size: 17px;
+  font-size: 18px;
 }
 .rightbarFollowing {
   display: flex;
