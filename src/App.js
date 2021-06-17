@@ -12,7 +12,6 @@ import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
 import Messenger from "./pages/messenger/Messenger";
 import { useState, useEffect } from "react";
-// import "antd/dist/antd.css";
 
 function App() {
   // const { user } = useContext(AuthContext);
