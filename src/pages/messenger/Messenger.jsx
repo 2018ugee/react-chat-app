@@ -26,7 +26,19 @@ function Messenger() {
   const scrollRef = useRef();
 
   useEffect(() => {
-    socket.current = io("ws://localhost:5000"); //ws=web socket
+    window.scrollTo(0, 0);
+
+    // socket.current = io("ws://localhost:5000"); //ws=web socket
+    socket.current = io("ws://pandsocial-socket-server.herokuapp.com");
+
+    socket.current.emit("addUser", user._id);
+
+    socket.current.on("getUsers", (users) => {
+      setonlineUsers(
+        user.followings.filter((f) => users.some((u) => u.userId === f))
+      );
+    });
+
     socket.current.on("getMessage", (data) => {
       setarrivalMessage({
         sender: data.senderId,
@@ -34,7 +46,7 @@ function Messenger() {
         createdAt: Date.now(),
       });
     });
-  }, []);
+  }, [user._id]);
 
   useEffect(() => {
     arrivalMessage &&
@@ -42,18 +54,11 @@ function Messenger() {
       setmessages((prev) => [...prev, arrivalMessage]);
   }, [arrivalMessage, currentChat]);
 
-  useEffect(() => {
-    // socket.current.on("welcome",message=>{
-    //     console.log(message);
-    // });
-    window.scrollTo(0, 0);
-    socket.current.emit("addUser", user._id);
-    socket.current.on("getUsers", (users) => {
-      setonlineUsers(
-        user.followings.filter((f) => users.some((u) => u.userId === f))
-      );
-    });
-  }, [user._id]);
+  // useEffect(() => {
+  //   // socket.current.on("welcome",message=>{
+  //   //     console.log(message);
+  //   // });
+  // }, [user._id]);
 
   useEffect(() => {
     const getConversations = async () => {
@@ -98,6 +103,9 @@ function Messenger() {
         );
         setconvFriend(convfrnd.data);
       } catch (err) {
+        if (currentChat) {
+          alert("Error in fetching messeges! Please refresh.");
+        }
         console.log(err);
       }
     };
@@ -131,6 +139,7 @@ function Messenger() {
       setmessages([...messages, res.data]);
       setnewMessage("");
     } catch (err) {
+      alert("Sending msg failed! try again.");
       console.log(err);
     }
   };
