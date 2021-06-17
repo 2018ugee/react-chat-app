@@ -53,6 +53,9 @@ function Login() {
         window.location.reload();
       }
     } catch (err) {
+      setisFetching(false);
+      email.current.value = "";
+      password.current.value = "";
       alert("Server error try again after refreshing");
       console.log(err);
     }
