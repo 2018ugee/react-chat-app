@@ -53,33 +53,73 @@ function Feed({ username }) {
 
   //uploads profile & cover pic
   const handleUpload = async (file, changeTypeKey) => {
-    console.log("called");
     if (file) {
-      console.log("update pic");
+      // console.log("update pic");
+
       const data = new FormData();
       const fileName = Date.now() + file.name;
+      console.log(fileName, "filename");
       data.append("name", fileName);
       data.append("file", file);
-      //update profilePicture in database & localstorage
-      if (changeTypeKey === "profilePicture") user.profilePicture = fileName;
-      else user.coverPicture = fileName;
-      localStorage.removeItem("user");
-      localStorage.setItem("user", JSON.stringify(user));
+
       try {
+        //upload image to cdn by api returns new url of image
+        const res = await axios.post(
+          "https://pandsocial.herokuapp.com/api/upload",
+          data
+        );
+        // console.log(res.data);
+
+        //update profilePicture in database & localstorage
+        if (changeTypeKey === "profilePicture") user.profilePicture = res.data;
+        else user.coverPicture = res.data;
+        localStorage.removeItem("user");
+        localStorage.setItem("user", JSON.stringify(user));
+
+        // update profilePicture on database
         await axios.put(
           "https://pandsocial.herokuapp.com/api/users/" + user._id,
           {
-            [changeTypeKey]: fileName,
+            [changeTypeKey]: res.data,
             userId: user._id,
           }
         );
-        await axios.post("https://pandsocial.herokuapp.com/api/upload", data);
+
         window.location.reload();
       } catch (err) {
         console.log(err);
+        alert("Something went wrong!! Try again.");
       }
     }
   };
+  // const handleUpload = async (file, changeTypeKey) => {
+  //   console.log("called");
+  //   if (file) {
+  //     console.log("update pic");
+  //     const data = new FormData();
+  //     const fileName = Date.now() + file.name;
+  //     data.append("name", fileName);
+  //     data.append("file", file);
+  //     //update profilePicture in database & localstorage
+  //     if (changeTypeKey === "profilePicture") user.profilePicture = fileName;
+  //     else user.coverPicture = fileName;
+  //     localStorage.removeItem("user");
+  //     localStorage.setItem("user", JSON.stringify(user));
+  //     try {
+  //       await axios.put(
+  //         "https://pandsocial.herokuapp.com/api/users/" + user._id,
+  //         {
+  //           [changeTypeKey]: fileName,
+  //           userId: user._id,
+  //         }
+  //       );
+  //       await axios.post("https://pandsocial.herokuapp.com/api/upload", data);
+  //       window.location.reload();
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   }
+  // };
 
   //update details of user
   const handleSubmit = async (e) => {
@@ -158,6 +198,7 @@ function Feed({ username }) {
                       //   );
                       handleUpload(e.target.files[0], "profilePicture");
                     }}
+                    onClick={(e) => (e.target.value = "")}
                   />
                 </label>
               </Button>
@@ -179,14 +220,9 @@ function Feed({ username }) {
                     id="file2"
                     accept=".png,.jpg,.jpeg"
                     onChange={(e) => {
-                      //   setfile(
-                      //     (prev) => e.target.files[0],
-                      //     (s) => {
-                      //       handleUpload("coverPicture");
-                      //     }
-                      //   );
                       handleUpload(e.target.files[0], "coverPicture");
                     }}
+                    onClick={(e) => (e.target.value = "")}
                   />
                 </label>
               </Button>

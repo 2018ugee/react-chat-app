@@ -18,6 +18,7 @@ import axios from "axios";
 
 function Sidebar() {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  const CDN = process.env.REACT_APP_CDN_URL;
   const currentUser = JSON.parse(localStorage.getItem("user"));
   const history = useHistory();
   const [otherUsers, setotherUsers] = useState([]);
@@ -113,7 +114,7 @@ function Sidebar() {
                   <img
                     src={
                       user.profilePicture
-                        ? PF + user.profilePicture
+                        ? CDN + user.profilePicture
                         : PF + "person/noAvatar.png"
                     }
                     alt=""

@@ -4,6 +4,7 @@ import "./chatOnline.css";
 
 function ChatOnline({ onlineUsers, currentId, setcurrentChat, conversations }) {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  const CDN = process.env.REACT_APP_CDN_URL;
   const [friends, setfriends] = useState([]);
   const [onlineFriends, setonlineFriends] = useState([]);
 
@@ -49,7 +50,7 @@ function ChatOnline({ onlineUsers, currentId, setcurrentChat, conversations }) {
               className="chatOnlineImg"
               src={
                 f?.profilePicture
-                  ? PF + f.profilePicture
+                  ? CDN + f.profilePicture
                   : PF + "person/noAvatar.png"
               }
               alt=""

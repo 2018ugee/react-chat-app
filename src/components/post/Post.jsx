@@ -8,6 +8,9 @@ import { Link, useHistory } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import Picker from "emoji-picker-react";
 import ThumbUpAltOutlinedIcon from "@material-ui/icons/ThumbUpAltOutlined";
+import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
+import FavoriteBorderOutlinedIcon from "@material-ui/icons/FavoriteBorderOutlined";
+import FavoriteBorderTwoToneIcon from "@material-ui/icons/FavoriteBorderTwoTone";
 
 function Post({ post }) {
   console.log(post);
@@ -19,6 +22,7 @@ function Post({ post }) {
   const [commentBoxOpen, setcommentBoxOpen] = useState(false);
   const [openemoji, setopenemoji] = useState(false);
   const PF = process.env.REACT_APP_PUBLIC_FOLDER; //to append on photos path
+  const CDN = process.env.REACT_APP_CDN_URL;
   //   const { user: currentUser } = useContext(AuthContext);
   const currentUser = JSON.parse(localStorage.getItem("user"));
   const history = useHistory();
@@ -91,7 +95,7 @@ function Post({ post }) {
             <img
               src={
                 user.profilePicture
-                  ? PF + user.profilePicture
+                  ? CDN + user.profilePicture
                   : PF + "person/noAvatar.png"
               }
               alt=""
@@ -109,7 +113,7 @@ function Post({ post }) {
         </div>
         <div className="postCenter">
           <span className="postText">{post?.desc}</span>
-          <img className="postImg" src={PF + post.img} alt="" />
+          <img className="postImg" src={CDN + post.img} alt="" />
         </div>
         <div className="postBottom">
           <div className="postBottomLeft">
@@ -124,13 +128,19 @@ function Post({ post }) {
               onClick={likehandler}
               style={{ color: isliked ? "#1877f2" : null }}
             />
-            <img
+            {/* <img
               className="heartIcon"
               onClick={likehandler}
               src={`${PF}heart.png`}
               alt=""
-            />
-            <span className="postLikeCounter">{like} People like it</span>
+            /> */}
+            {/* <FavoriteBorderTwoToneIcon
+              className="heartIcon"
+              onClick={likehandler}
+              style={{ color: isliked ? "#1877f2" : null }}
+            /> */}
+
+            <span className="postLikeCounter">{like}</span>
           </div>
           <div className="postBottomRight">
             <span

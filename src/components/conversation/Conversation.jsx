@@ -5,6 +5,7 @@ import "./conversation.css";
 function Conversation({ conversation, currentUser }) {
   const [user, setuser] = useState(null); //friend with conversation
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  const CDN = process.env.REACT_APP_CDN_URL;
 
   useEffect(() => {
     const friendId = conversation.members.find((m) => m !== currentUser._id);
@@ -26,7 +27,7 @@ function Conversation({ conversation, currentUser }) {
       <img
         src={
           user?.profilePicture
-            ? PF + user.profilePicture
+            ? CDN + user.profilePicture
             : PF + "person/noAvatar.png"
         }
         alt=""

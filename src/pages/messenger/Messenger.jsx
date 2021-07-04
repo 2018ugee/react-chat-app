@@ -23,13 +23,15 @@ function Messenger() {
   const socket = useRef();
   // const { user } = useContext(AuthContext);
   const user = JSON.parse(localStorage.getItem("user"));
+  const CDN = process.env.REACT_APP_CDN_URL;
+  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const scrollRef = useRef();
 
   useEffect(() => {
     window.scrollTo(0, 0);
 
     // socket.current = io("ws://localhost:5000"); //ws=web socket
-    socket.current = io("ws://pandsocial-socket-server.herokuapp.com");
+    socket.current = io("wss://pandsocial-socket-server.herokuapp.com");
 
     socket.current.emit("addUser", user._id);
 
@@ -211,8 +213,16 @@ function Messenger() {
                         message={m}
                         own={m.sender === user._id ? true : false}
                         key={m._id}
-                        userProfile={user.profilePicture}
-                        otherProfile={convFriend?.profilePicture}
+                        userProfile={
+                          user.profilePicture
+                            ? CDN + user.profilePicture
+                            : PF + "person/noAvatar.png"
+                        }
+                        otherProfile={
+                          convFriend?.profilePicture
+                            ? CDN + convFriend.profilePicture
+                            : PF + "person/noAvatar.png"
+                        }
                       />
                     </div>
                   ))}

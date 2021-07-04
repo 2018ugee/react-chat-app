@@ -12,6 +12,7 @@ import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
 import Messenger from "./pages/messenger/Messenger";
 import { useState, useEffect } from "react";
+import Upload from "./Upload";
 
 function App() {
   // const { user } = useContext(AuthContext);
@@ -22,6 +23,9 @@ function App() {
   return (
     <Router>
       <Switch>
+        {/* <Route exact path="/upload">
+          {<Upload />}
+        </Route> */}
         <Route exact path="/">
           {user ? <Home /> : <Redirect to="/login" />}
         </Route>

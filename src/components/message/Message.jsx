@@ -1,20 +1,21 @@
 import "./message.css";
 import { format } from "timeago.js";
 
-function Message({ own, message, userProfile, otherProfile }) {
+function Message({ own, message, userProfileUrl, otherProfileUrl }) {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  const CDN = process.env.REACT_APP_CDN_URL;
   //   console.log(userProfile, otherProfile);
-  if (!userProfile) {
-    userProfile = "person/noAvatar.png";
-  }
-  if (!otherProfile) {
-    otherProfile = "person/noAvatar.png";
-  }
+  // if (!userProfileU) {
+  //   userProfile = "person/noAvatar.png";
+  // }
+  // if (!otherProfile) {
+  //   otherProfile = "person/noAvatar.png";
+  // }
   return (
     <div className={own ? "message own" : "message"}>
       <div className="messageTop">
         <img
-          src={own ? PF + userProfile : PF + otherProfile}
+          src={own ? userProfileUrl : otherProfileUrl}
           alt=""
           className="messageImg"
         />

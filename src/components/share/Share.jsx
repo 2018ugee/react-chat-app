@@ -11,6 +11,7 @@ function Share() {
   const user = JSON.parse(localStorage.getItem("user"));
   //   console.log(user, "storage");
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  const CDN = process.env.REACT_APP_CDN_URL;
   const desc = useRef();
   const [file, setfile] = useState(null);
 
@@ -25,9 +26,14 @@ function Share() {
       const fileName = Date.now() + file.name;
       data.append("name", fileName);
       data.append("file", file);
-      newPost.img = fileName;
+      // newPost.img = fileName;
       try {
-        await axios.post("https://pandsocial.herokuapp.com/api/upload", data);
+        // upload to cdn from api and returns new url of image
+        const res = await axios.post(
+          "https://pandsocial.herokuapp.com/api/upload",
+          data
+        );
+        newPost.img = res.data;
       } catch (err) {
         console.log(err);
       }
@@ -46,7 +52,7 @@ function Share() {
           <img
             src={
               user.profilePicture
-                ? PF + user.profilePicture
+                ? CDN + user.profilePicture
                 : PF + "person/noAvatar.png"
             }
             alt=""

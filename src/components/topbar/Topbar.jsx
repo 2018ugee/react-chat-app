@@ -16,6 +16,7 @@ function Topbar() {
   //   const { user } = useContext(AuthContext);
   const user = JSON.parse(localStorage.getItem("user"));
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  const CDN = process.env.REACT_APP_CDN_URL;
   const history = useHistory();
 
   const handleLogout = () => {
@@ -99,7 +100,7 @@ function Topbar() {
         <img
           src={
             user?.profilePicture
-              ? PF + user.profilePicture
+              ? CDN + user.profilePicture
               : PF + "/person/noAvatar.png"
           }
           alt=""

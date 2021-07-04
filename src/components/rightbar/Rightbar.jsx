@@ -10,6 +10,7 @@ import { CircularProgress } from "@material-ui/core";
 
 function Rightbar({ user }) {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER; //to append on photos path
+  const CDN = process.env.REACT_APP_CDN_URL;
   // const [friends,setfriends] = useState([]);
   //   const { user: currentUser, dispatch } = useContext(AuthContext);
   const { dispatch } = useContext(AuthContext);
@@ -75,7 +76,7 @@ function Rightbar({ user }) {
                   <img
                     src={
                       user.profilePicture
-                        ? PF + user.profilePicture
+                        ? CDN + user.profilePicture
                         : PF + "person/noAvatar.png"
                     }
                     alt=""
@@ -258,7 +259,7 @@ function Rightbar({ user }) {
                   <img
                     src={
                       friend.profilePicture
-                        ? PF + friend.profilePicture
+                        ? CDN + friend.profilePicture
                         : PF + "person/noAvatar.png"
                     }
                     alt=""

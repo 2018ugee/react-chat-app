@@ -10,6 +10,7 @@ import { useParams } from "react-router";
 
 function Profile() {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER; //to append on photos path
+  const CDN = process.env.REACT_APP_CDN_URL;
   const [user, setuser] = useState({});
   const username = useParams().username;
   // console.log(params,"useParams");
@@ -50,7 +51,7 @@ function Profile() {
               <img
                 src={
                   user.profilePicture
-                    ? PF + user.profilePicture
+                    ? CDN + user.profilePicture
                     : PF + "person/noAvatar.png"
                 }
                 alt=""
