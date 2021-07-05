@@ -5,6 +5,7 @@ import { Button } from "@material-ui/core";
 import { useContext, useRef, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import axios from "axios";
+import { CircularProgress } from "@material-ui/core";
 
 function Share() {
   // const {user} = useContext(AuthContext);
@@ -14,9 +15,11 @@ function Share() {
   const CDN = process.env.REACT_APP_CDN_URL;
   const desc = useRef();
   const [file, setfile] = useState(null);
+  const [isPosting, setisPosting] = useState(false);
 
   const submitHandler = async (e) => {
     e.preventDefault();
+    setisPosting(true);
     const newPost = {
       userId: user._id,
       desc: desc.current.value,
@@ -36,13 +39,20 @@ function Share() {
         newPost.img = res.data;
       } catch (err) {
         console.log(err);
+        alert("Failed to upload image. Try again!");
+        setisPosting(false);
+        return;
       }
     }
 
     try {
       await axios.post("https://pandsocial.herokuapp.com/api/posts", newPost);
       window.location.reload();
-    } catch (err) {}
+    } catch (err) {
+      console.log(err);
+      alert("Failed to upload post. Try again!");
+    }
+    setisPosting(false);
   };
 
   return (
@@ -100,7 +110,11 @@ function Share() {
             </div>
           </div>
           <button type="submit" className="shareButton">
-            Share
+            {isPosting ? (
+              <CircularProgress color="white" size="20px" />
+            ) : (
+              "Share"
+            )}
           </button>
         </form>
       </div>

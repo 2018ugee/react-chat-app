@@ -10,10 +10,14 @@ import ImageIcon from "@material-ui/icons/Image";
 import PanoramaIcon from "@material-ui/icons/Panorama";
 import { Button, Modal, Fade, Backdrop } from "@material-ui/core";
 import ErrorOutlineIcon from "@material-ui/icons/ErrorOutline";
+import { CircularProgress } from "@material-ui/core";
 
 function Feed({ username }) {
   const user = JSON.parse(localStorage.getItem("user"));
   const [posts, setposts] = useState([]);
+  const [isUploadingProfile, setisUploadingProfile] = useState(false);
+  const [isUploadingCover, setisUploadingCover] = useState(false);
+  const [isUploadingDetails, setisUploadingDetails] = useState(false);
   const name = useRef();
   const email = useRef();
   const password = useRef();
@@ -54,6 +58,11 @@ function Feed({ username }) {
   //uploads profile & cover pic
   const handleUpload = async (file, changeTypeKey) => {
     if (file) {
+      if (changeTypeKey == "profilePicture") {
+        setisUploadingProfile(true);
+      } else {
+        setisUploadingCover(true);
+      }
       // console.log("update pic");
 
       const data = new FormData();
@@ -68,7 +77,7 @@ function Feed({ username }) {
           "https://pandsocial.herokuapp.com/api/upload",
           data
         );
-        // console.log(res.data);
+        // console.log(res.data, "picture_url_to_append");
 
         //update profilePicture in database & localstorage
         if (changeTypeKey === "profilePicture") user.profilePicture = res.data;
@@ -89,6 +98,13 @@ function Feed({ username }) {
       } catch (err) {
         console.log(err);
         alert("Something went wrong!! Try again.");
+      }
+
+      //removing loader
+      if (changeTypeKey == "profilePicture") {
+        setisUploadingProfile(false);
+      } else {
+        setisUploadingCover(false);
       }
     }
   };
@@ -124,6 +140,8 @@ function Feed({ username }) {
   //update details of user
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    setisUploadingDetails(true);
     // console.log(name.current);
     // console.log(name.current.value.length);
     // console.log(email.current);
@@ -155,7 +173,11 @@ function Feed({ username }) {
       window.location.reload();
     } catch (err) {
       console.log(err);
+      alert("Failed to update details!!");
     }
+
+    //removing loader
+    setisUploadingDetails(false);
   };
 
   return (
@@ -170,7 +192,12 @@ function Feed({ username }) {
                 onClick={handleOpen}
                 className="updatebarIcon"
               >
-                <EditRoundedIcon /> Update Details
+                <EditRoundedIcon />
+                {isUploadingDetails ? (
+                  <CircularProgress color="white" size="20px" />
+                ) : (
+                  "Update Details"
+                )}
               </Button>
             </div>
 
@@ -183,7 +210,11 @@ function Feed({ username }) {
               >
                 <label htmlFor="file1" className="shareOption">
                   <ImageIcon />
-                  Update Profile Pic
+                  {isUploadingProfile ? (
+                    <CircularProgress color="white" size="20px" />
+                  ) : (
+                    "Update Profile Pic"
+                  )}
                   <input
                     style={{ display: "none" }}
                     type="file"
@@ -213,7 +244,11 @@ function Feed({ username }) {
               >
                 <label htmlFor="file2" className="shareOption">
                   <ImageIcon />
-                  Update Cover Pic
+                  {isUploadingCover ? (
+                    <CircularProgress color="white" size="20px" />
+                  ) : (
+                    "Update Cover Pic"
+                  )}
                   <input
                     style={{ display: "none" }}
                     type="file"
@@ -296,7 +331,11 @@ function Feed({ username }) {
                   className="updateInput"
                 />
                 <button type="submit" className="updateButton">
-                  Update Profile
+                  {isUploadingDetails ? (
+                    <CircularProgress color="white" size="20px" />
+                  ) : (
+                    "Update Profile"
+                  )}
                 </button>
               </form>
             </div>

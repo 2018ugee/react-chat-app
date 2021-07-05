@@ -42,7 +42,7 @@ function Profile() {
               <img
                 src={
                   user.coverPicture
-                    ? PF + user.coverPicture
+                    ? CDN + user.coverPicture
                     : PF + "person/noCover.png"
                 }
                 alt=""

@@ -213,12 +213,12 @@ function Messenger() {
                         message={m}
                         own={m.sender === user._id ? true : false}
                         key={m._id}
-                        userProfile={
+                        userProfileUrl={
                           user.profilePicture
                             ? CDN + user.profilePicture
                             : PF + "person/noAvatar.png"
                         }
-                        otherProfile={
+                        otherProfileUrl={
                           convFriend?.profilePicture
                             ? CDN + convFriend.profilePicture
                             : PF + "person/noAvatar.png"
